@@ -32,10 +32,15 @@ class ImageUpload extends Component {
     }
     handleUpload=()=>{
         const {files}=this.state
-        if(files.length>0){
-            files.map(file=>{
+        const uploadTask=(images)=>{
+            images.map(file=>{
                 storage.ref(`images/${file.name}`).put(file)
             })
+        }
+        if(files.length>0){
+            uploadTask(files)
+            this.setState({files:[]})
+            
         }
     }
     render() {
